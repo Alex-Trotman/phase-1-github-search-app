@@ -31,7 +31,34 @@ document.addEventListener('DOMContentLoaded', () => {
         avatarElement.src = user.avatar_url;
         profileLinkElement.href = user.html_url;
         profileLinkElement.textContent = 'Profile';
-  
+        
+        userElement.addEventListener('click', () => {
+          const username = user.login;
+          const repoUrl = `https://api.github.com/users/${username}/repos`;
+        
+          fetch(repoUrl, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/vnd.github.v3+json'
+            }
+          })
+            .then(response => response.json())
+            .then(data => displayUserRepos(data));
+        });
+        
+        // ...
+        
+        function displayUserRepos(repos) {
+          // Clear previous repository information
+          // ...
+        
+          repos.forEach(repo => {
+            // Create HTML elements to display each repository's information
+            // ...
+          });
+        }
+
         userElement.appendChild(usernameElement);
         userElement.appendChild(avatarElement);
         userElement.appendChild(profileLinkElement);
